@@ -19,6 +19,14 @@ def create_table(c):
         ); 
     """
     c.execute(sql)
+    sql = """ 
+        CREATE TABLE IF NOT EXISTS polling (
+            id integer PRIMARY KEY,
+            question varchar(225) NOT NULL,
+            options varchar(225) NOT NULL
+        ); 
+    """
+    c.execute(sql)
 
 def create_item(c, item):
     sql = ''' INSERT INTO items(name)
@@ -31,10 +39,33 @@ def update_item(c, item):
               WHERE name = ? '''
     c.execute(sql, item)
 
+
+
+def updatePoll(c,id,data):
+    data = json.dumps(data)
+    sql = "UPDATE polling SET options = " +"'"+data+"'"+"WHERE id= " +"'" +id+"'"
+    c.execute(sql)
+
+
+def add_poll(c, ques, op1, op2):
+    ops = json.dumps({op1:0,op2:0})
+    print(ops)
+    sql = "INSERT INTO polling(question,options) VALUES ("+"'"+ques+"',"+"'"+ops+"'"+");"
+    c.execute(sql)
+    sql = "select max(id) from polling"
+    c.execute(sql)
+    return c.fetchall()[0]['max(id)']
+
+def fetchPoll(c, id):
+    sql = "SELECT * FROM polling where id =  "+"'"+ id+"'"; 
+    c.execute(sql)
+    rows = c.fetchall()[0]
+    return json.dumps(rows)
+
 def select_all_items(c, name):
     sql = ''' SELECT * FROM items '''
     c.execute(sql)
- 
+
     rows = c.fetchall()
     rows.append({'name' : name})
     return json.dumps(rows)

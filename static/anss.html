@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Python Poll</title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<style type="text/css">
+		.poll-member h1 {
+			cursor: pointer
+		}
+
+    .percentageBarParent{
+      height: 22px;
+      width: 100%;
+      border: 1px solid black;
+    }
+
+    .percentageBar {
+      height: 20px;
+      width: 0%;
+    }
+	</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+  <script type="text/javascript" src="/static/apps.js" defer></script>
+  <script type="text/javascript">
+
+
+var members = []
+
+var finaldata,success,dataType;
+var keys = [];
+var counts = [];
+var question=""
+$.get('/question?ques='+localStorage.getItem("formNumber"), function(data, status){
+  question = JSON.parse(data).question
+  var options =JSON.parse(JSON.parse(data).options) 
+  document.getElementById("quest").innerHTML = question
+  var cnt = 1
+  for(var k in options)
+  {
+    document.getElementById("op"+cnt).innerHTML = k
+    cnt+=1
+  }   
+});
+
+  </script>
+</head>
+<body>
+	<div class="main">
+      <div class="container">
+        <h1 id="quest"></h1>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="poll-member Go">
+                <h1 id="op1"></h1>
+                <div class="percentageBarParent">
+                <div class="percentageBar" id="e"></div>
+              </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="poll-member ">
+                <h1 id="op2"></h1> 
+                <div class="percentageBarParent">
+                <div class="percentageBar" id="b"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+
+
+</body>
+</html>
