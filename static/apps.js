@@ -43,8 +43,8 @@ var handlePoll = function(member) {
         }
         for (i = 0; i < (2); i++) { 
           var total = counts[0] + counts[1]
-          document.getElementById(members[i]).style.width = calculatePercentage(total, counts[i])
-          document.getElementById(members[i]).style.background = "#388e3c" 
+          document.getElementById("op"+(i+1)+"perc").style.width = calculatePercentage(total, counts[i])
+          document.getElementById("op"+(i+1)+"perc").style.background = "#388e3c" 
         }
   })
 }

@@ -3,7 +3,6 @@
 <head>
 	<meta charset="utf-8">
 	<title>Python Poll</title>
-	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 	<style type="text/css">
 		.poll-member h1 {
 			cursor: pointer
@@ -22,7 +21,6 @@
 	</style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
   <script type="text/javascript" src="/static/apps.js" defer></script>
   <script type="text/javascript">
@@ -34,6 +32,7 @@ var finaldata,success,dataType;
 var keys = [];
 var counts = [];
 var question=""
+
 $.get('/question?ques='+localStorage.getItem("formNumber"), function(data, status){
   question = JSON.parse(data).question
   var options =JSON.parse(JSON.parse(data).options) 
@@ -58,7 +57,7 @@ $.get('/question?ques='+localStorage.getItem("formNumber"), function(data, statu
               <div class="poll-member Go">
                 <h1 id="op1"></h1>
                 <div class="percentageBarParent">
-                <div class="percentageBar" id="e"></div>
+                <div class="percentageBar" id="op1perc"></div>
               </div>
               </div>
             </div>
@@ -66,7 +65,7 @@ $.get('/question?ques='+localStorage.getItem("formNumber"), function(data, statu
               <div class="poll-member ">
                 <h1 id="op2"></h1> 
                 <div class="percentageBarParent">
-                <div class="percentageBar" id="b"></div>
+                <div class="percentageBar" id="op2perc"></div>
                 </div>
               </div>
             </div>
