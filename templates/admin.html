@@ -3,9 +3,71 @@
 <head>
 	<meta charset="utf-8">
 	<title>Python Poll Admin</title>
-	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script type="text/javascript">
+    
+    var functi1 = function(){
+
+        var input = document.getElementById("formNumber");
+        localStorage.setItem("enterForm", input.value);
+        var keys = [];
+        var counts = [];
+        var question=""
+        var members = []
+        $.get('/question?ques='+localStorage.getItem("enterForm")
+        , function(data, status){
+            question = JSON.parse(data).question
+            var options =JSON.parse(JSON.parse(data).options) 
+            for(var k in options)
+            {
+              members.push(k);
+              counts.push(options[k])
+            }
+
+          var dataPoints = [
+              { label: members[0], y: counts[0] },
+              { label: members[1], y: counts[1] }
+            ]
+
+            var chartContainer = document.querySelector('#chartContainer');
+            
+            if(chartContainer) {
+              var chart = new CanvasJS.Chart("chartContainer",
+                {
+                  animationEnabled: true,
+                  theme: "theme2",
+                  data: [
+                  {
+                    type: "column",
+                    dataPoints: dataPoints
+                  }
+                  ]
+                });
+              chart.render();
+            }
+            chart.render();
+            
+            
+               
+          });
+
+    }
+  </script>
+    <nav>
+      <div class="nav-wrapper">
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li><a href="\">Home</a></li>
+        </ul>
+      </div>
+    </nav>
 </head>
 <body>
+
+  <form id="forms">
+    Form Number    <input type="text" name="formNum" id="formNumber">
+    <button class = "waves-effect waves-light btn" type = "button" onclick="functi1()">Check Stats</button>
+  </form>
 	<div class="main">
     <div class="container">
       <h1>Chart</h1>
@@ -16,8 +78,7 @@
     <!-- SCRIPTS -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-  <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
-	<script type="text/javascript" src="{{ url_for('static', filename='admin.js') }}" defer></script>
+	<!-- <script type="text/javascript" src="{{ url_for('static', filename='admin.js') }}" defer></script> -->
 </body>
 </html>
